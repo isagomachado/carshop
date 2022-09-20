@@ -6,15 +6,19 @@ class CarsController {
   constructor(private _service: IService<ICar>) { }
   
   public async create(req: Request, res: Response<ICar>) {
-    // console.log(req.body);
-
     const { doorsQty, seatsQty, model, year, color, buyValue } = req.body;
+    
     const car = { model, doorsQty, seatsQty, year, color, buyValue };
+    
     const result = await this._service.create(car);
 
-    console.log(result);
-
     return res.status(201).json(result);
+  }
+
+  public async read(_req: Request, res: Response<ICar[]>) {
+    const result = await this._service.read();
+    
+    return res.status(200).json(result);
   }
 }
 
